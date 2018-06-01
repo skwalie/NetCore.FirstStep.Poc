@@ -1,0 +1,8 @@
+C:\Users\pmaqu\source\repos\NetCore.FirstStep\NetCore.FirstStep.Business.Implementation\bin\Debug\netcoreapp2.0\NetCore.FirstStep.Business.Implementation.deps.json
+C:\Users\pmaqu\source\repos\NetCore.FirstStep\NetCore.FirstStep.Business.Implementation\bin\Debug\netcoreapp2.0\NetCore.FirstStep.Business.Implementation.dll
+C:\Users\pmaqu\source\repos\NetCore.FirstStep\NetCore.FirstStep.Business.Implementation\bin\Debug\netcoreapp2.0\NetCore.FirstStep.Business.Implementation.pdb
+C:\Users\pmaqu\source\repos\NetCore.FirstStep\NetCore.FirstStep.Business.Implementation\obj\Debug\netcoreapp2.0\NetCore.FirstStep.Business.Implementation.csproj.CoreCompileInputs.cache
+C:\Users\pmaqu\source\repos\NetCore.FirstStep\NetCore.FirstStep.Business.Implementation\obj\Debug\netcoreapp2.0\NetCore.FirstStep.Business.Implementation.AssemblyInfoInputs.cache
+C:\Users\pmaqu\source\repos\NetCore.FirstStep\NetCore.FirstStep.Business.Implementation\obj\Debug\netcoreapp2.0\NetCore.FirstStep.Business.Implementation.AssemblyInfo.cs
+C:\Users\pmaqu\source\repos\NetCore.FirstStep\NetCore.FirstStep.Business.Implementation\obj\Debug\netcoreapp2.0\NetCore.FirstStep.Business.Implementation.dll
+C:\Users\pmaqu\source\repos\NetCore.FirstStep\NetCore.FirstStep.Business.Implementation\obj\Debug\netcoreapp2.0\NetCore.FirstStep.Business.Implementation.pdb
