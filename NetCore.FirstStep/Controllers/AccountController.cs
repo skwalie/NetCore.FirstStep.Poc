@@ -5,7 +5,6 @@ using NetCore.FirstStep.Business.Queries;
 using NetCore.FirstStep.Core;
 using NetCore.FirstStep.Domain;
 using NetCore.FirstStep.ViewArguments;
-using NetCore.FirstStep.ViewModels;
 
 namespace NetCore.FirstStep.Controllers
 {
@@ -23,7 +22,6 @@ namespace NetCore.FirstStep.Controllers
             _createAccountCommandHandler = createAccountCommandHandler;
         }
 
-        // GET api/values/5
         [HttpGet("{key}")]
         public async Task<IActionResult> Get(GetAccountViewArgument argument)
         {

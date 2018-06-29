@@ -1,7 +1,5 @@
 ﻿using NetCore.FirstStep.Domain;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace NetCore.FirstStep.Business.Implementation
 {
@@ -14,7 +12,6 @@ namespace NetCore.FirstStep.Business.Implementation
             Accounts.Add(new Account("BCE-0001", situation));
             Accounts.Add(new Account("BNB-0001", new Situation(167879870000)));
             Transactions.Add(new Transaction("BCE-0001", "BNB-0001", 10000000));
-
         }
 
         public List<Account> Accounts = new List<Account>();

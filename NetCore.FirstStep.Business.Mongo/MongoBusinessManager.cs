@@ -35,13 +35,7 @@ namespace NetCore.FirstStep.Business.Mongo
             account.AddOperation(operation);
 
             var dto = Mapper.Map(account);
-
             var filterDef = new ExpressionFilterDefinition<AccountDto>(acc => acc.Key == account.Key);
-
-            //var options = new UpdateOptions()
-            //{
-            //    Projection = projection,
-            //};
 
             await accounts.ReplaceOneAsync(
                 filterDef,

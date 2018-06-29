@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using NetCore.FirstStep.Domain;
@@ -19,7 +17,6 @@ namespace NetCore.FirstStep.Business.Implementation
 
         public FirstStepBusinessManager() : this(new Stub())
         {
-
         }
 
         public Task<Account> CreateAccount()
@@ -80,7 +77,7 @@ namespace NetCore.FirstStep.Business.Implementation
                     (t.SenderKey == accountKey || t.RecipientKey == accountKey));
 
 #if DEBUG
-            Thread.Sleep(50);
+            Thread.Sleep(25);
 #endif
 
             return Task.FromResult(result);

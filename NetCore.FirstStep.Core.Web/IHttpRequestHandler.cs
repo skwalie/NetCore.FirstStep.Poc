@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using NetCore.FirstStep.Core.Interfaces;
 using System.Threading.Tasks;
 
 namespace NetCore.FirstStep.Core

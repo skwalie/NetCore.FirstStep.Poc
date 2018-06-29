@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using NetCore.FirstStep.Core;
+﻿using NetCore.FirstStep.Core;
 
 namespace NetCore.FirstStep.Business
 {

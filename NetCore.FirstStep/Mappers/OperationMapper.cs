@@ -1,5 +1,4 @@
-﻿using NetCore.FirstStep.Business.Commands;
-using NetCore.FirstStep.Business.Queries;
+﻿using NetCore.FirstStep.Business.Queries;
 using NetCore.FirstStep.Core;
 using NetCore.FirstStep.Domain;
 using NetCore.FirstStep.ViewModels;

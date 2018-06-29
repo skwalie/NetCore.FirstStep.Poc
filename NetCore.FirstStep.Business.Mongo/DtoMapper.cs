@@ -72,7 +72,6 @@ namespace NetCore.FirstStep.Business.Mongo
             return new TransactionDto()
             {
                 CreationTimestamp = transaction.CreationTimestamp,
-                IntegrityCheck = transaction.IntegrityCheck,
                 TransactionId = transaction.Id,
                 RecipientKey = transaction.RecipientKey,
                 SenderKey = transaction.SenderKey,
@@ -106,6 +105,5 @@ namespace NetCore.FirstStep.Business.Mongo
                 situation.StartDate
                 );
         }
-
     }
 }
