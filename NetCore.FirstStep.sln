@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCore.FirstStep.Business"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCore.FirstStep.Core.Web", "NetCore.FirstStep.Core.Web\NetCore.FirstStep.Core.Web.csproj", "{A291833E-E592-4725-B77F-16F6510243CF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCore.FirstStep.Business.Stub", "NetCore.FirstStep.Business.Implementation\NetCore.FirstStep.Business.Stub.csproj", "{2C017D00-8E43-42FB-BB1C-D7E27BFE57F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCore.FirstStep.Business.Stub", "NetCore.FirstStep.Business.Stub\NetCore.FirstStep.Business.Stub.csproj", "{2C017D00-8E43-42FB-BB1C-D7E27BFE57F3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCore.FirstStep.Business.Mongo", "NetCore.FirstStep.Business.Mongo\NetCore.FirstStep.Business.Mongo.csproj", "{2C1787D5-7D5F-4F74-94C5-59933F136627}"
 EndProject

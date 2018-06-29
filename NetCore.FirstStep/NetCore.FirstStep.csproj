@@ -19,8 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NetCore.FirstStep.Business.Implementation\NetCore.FirstStep.Business.Stub.csproj" />
     <ProjectReference Include="..\NetCore.FirstStep.Business.Mongo\NetCore.FirstStep.Business.Mongo.csproj" />
+    <ProjectReference Include="..\NetCore.FirstStep.Business.Stub\NetCore.FirstStep.Business.Stub.csproj" />
     <ProjectReference Include="..\NetCore.FirstStep.Business\NetCore.FirstStep.Business.csproj" />
     <ProjectReference Include="..\NetCore.FirstStep.Core.Web\NetCore.FirstStep.Core.Web.csproj" />
     <ProjectReference Include="..\NetCore.FirstStep.Core\NetCore.FirstStep.Core.csproj" />
