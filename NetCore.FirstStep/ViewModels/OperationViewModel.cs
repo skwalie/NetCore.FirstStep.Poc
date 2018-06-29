@@ -1,10 +1,6 @@
-﻿using NetCore.FirstStep.Business.Commands;
-using NetCore.FirstStep.Business.Queries;
+﻿using NetCore.FirstStep.Business.Queries;
 using NetCore.FirstStep.Core;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NetCore.FirstStep.ViewModels
 {
