@@ -7,50 +7,22 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
 namespace NetCore.FirstStep.Core
-{
-    public class HttpCommandHandler<TInput, TOutput> : IHttpCommandHandler<TInput, TOutput>
+{ 
+    public abstract class HttpCommandHandler<TIntent, TOutput> : HttpRequestHandler<TIntent, TOutput>,
+        IHttpCommandHandler<TIntent, TOutput>
+        where TIntent : ICommandIntent
     {
-        private readonly ICommand<TInput, TOutput> _request;
-
-        public HttpCommandHandler(ICommand<TInput, TOutput> command)
+        public HttpCommandHandler(
+            ICommand<TIntent, TOutput> command, 
+            IResponseMapper<TIntent, TOutput> responseMapper) : base(command, responseMapper)
         {
-            _request = command;
         }
 
-        public virtual async Task<IActionResult> HandleCommand(ControllerBase controller, TInput argument)
+        protected ICommand<TIntent, TOutput> Command => (ICommand<TIntent, TOutput>)ContextHolder;
+
+        protected override Task<IResult<TOutput>> ProcessRequest(TIntent input)
         {
-            if (controller.ModelState.IsValid)
-            {
-                var response = await _request.Execute(argument);
-
-                if (response.IsSuccessful)
-                {
-                    return controller.Ok(response.Content);
-                }
-                else
-                {
-                    return CreateErrorResponse(controller, response);
-                }
-            }
-            else
-            {
-                var result = FailureReason.PreconditionFailed.ToErrorResult<TOutput>(controller.ModelState
-                    .Select(x => $"{x.Key}/{x.Value}")
-                    .ToArray());
-
-                return CreateErrorResponse(controller, result);
-            }
-        }
-
-        protected virtual IActionResult CreateValidationErrorResponse(ControllerBase controller, IResult result)
-        {
-            return controller.StatusCode(422, result);
-        }
-
-        protected virtual IActionResult CreateErrorResponse(ControllerBase controller, IResult result)
-        {
-            var reason = result.ExceptionDetails.Max(x => (short)x.Reason);
-            return controller.StatusCode(reason, result);
+            return Command.Execute(input);
         }
     }
 }

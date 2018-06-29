@@ -4,21 +4,21 @@ using System.Text;
 
 namespace NetCore.FirstStep.Core
 {
-    public abstract class CacheService<TQueryArgument, TData> : ICacheService<TQueryArgument, TData>
-        where TQueryArgument : ICacheableQueryArgument
+    public abstract class CacheService<TIntent, TData> : 
+        ICacheService<TIntent, TData>
+        where TIntent : IIntent
     {
-        private readonly ICacheKeyBuilder<TQueryArgument> _keyBuilder;
+        private readonly ICacheKeyBuilder<TIntent> _keyBuilder;
 
-        public CacheService(ICacheKeyBuilder<TQueryArgument> keyBuilder)
+        public CacheService(ICacheKeyBuilder<TIntent> keyBuilder)
         {
             _keyBuilder = keyBuilder;
         }
 
-        protected ICacheKeyBuilder<TQueryArgument> KeyBuilder => _keyBuilder;
+        protected ICacheKeyBuilder<TIntent> KeyBuilder => _keyBuilder;
 
-        public abstract TData Create(TQueryArgument argument, TData data);
-        public abstract TData Get(TQueryArgument argument);
-        public abstract void Delete(TQueryArgument argument);
-        public abstract void Update(TQueryArgument argument, TData data);
+        public abstract TData Create(TIntent intent, TData data, TimeSpan relativeExpiration);
+        public abstract TData Get(TIntent intent);
+        public abstract void Invalidate(TIntent intent);
     }
 }

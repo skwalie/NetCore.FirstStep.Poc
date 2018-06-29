@@ -1,44 +1,51 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace NetCore.FirstStep.Core
 {
-    public class MemoryCacheService<TQueryArgument, TOutput> : CacheService<TQueryArgument, TOutput>
-        where TQueryArgument : ICacheableQueryArgument
+    public class MemoryCacheService<TIntent, TOutput> : CacheService<TIntent, TOutput>
+        where TIntent : IIntent
     {
         private readonly IMemoryCache _memoryCache;
 
-        public MemoryCacheService(ICacheKeyBuilder<TQueryArgument> keyBuilder, IMemoryCache memoryCache) : base(keyBuilder)
+        public MemoryCacheService(ICacheKeyBuilder<TIntent> keyBuilder, IMemoryCache memoryCache) : base(keyBuilder)
         {
             _memoryCache = memoryCache;
         }
-        
-        public override TOutput Create(TQueryArgument argument, TOutput result)
-        {
-            var key = KeyBuilder.GetCacheKey(argument);
 
-            return argument.RelativeExpiration.HasValue ?
-                _memoryCache.Set(key, result, argument.RelativeExpiration.Value) :
-                _memoryCache.Set(key, result);
+        public override TOutput Create(TIntent intent, TOutput result, TimeSpan relativeExpiration)
+        {
+            var key = KeyBuilder.GetCacheKey(intent);
+            return _memoryCache.Set(key, result, relativeExpiration);
         }
 
-        public override TOutput Get(TQueryArgument argument)
+        public override TOutput Get(TIntent intent)
         {
-            return _memoryCache.Get<TOutput>(argument);
+            var key = KeyBuilder.GetCacheKey(intent);
+            return key == null ? default(TOutput) : _memoryCache.Get<TOutput>(key);
         }
 
-        public override void Delete(TQueryArgument argument)
+        public override void Invalidate(TIntent intent)
         {
-            var key = KeyBuilder.GetCacheKey(argument);
-            _memoryCache.Remove(key);
+            var key = KeyBuilder.GetCacheKey(intent);
+
+            if (key != null)
+            {
+                Invalidate(key);
+            }
         }
 
-        public override void Update(TQueryArgument argument, TOutput data)
+        private void Invalidate(CacheKey cacheKey)
         {
-            var key = KeyBuilder.GetCacheKey(argument);
-            _memoryCache.Set(key, data);
+            foreach (var dependency in cacheKey.Dependencies)
+            {
+                Invalidate(dependency);
+            }
+
+            _memoryCache.Remove(cacheKey);
         }
     }
 }

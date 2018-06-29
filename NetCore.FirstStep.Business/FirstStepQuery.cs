@@ -1,5 +1,4 @@
-﻿using NetCore.FirstStep.Business.Arguments;
-using NetCore.FirstStep.Core;
+﻿using NetCore.FirstStep.Core;
 using NetCore.FirstStep.Domain;
 using System;
 using System.Collections.Generic;
@@ -8,15 +7,16 @@ using System.Threading.Tasks;
 
 namespace NetCore.FirstStep.Business.Queries
 {
-    public abstract class FirstStepQuery<TInput, TOutput> : QueryBase<TInput, TOutput>
+    public abstract class FirstStepQuery<TIntent, TOutput> : Query<TIntent, TOutput>
+        where TIntent : IQueryIntent
     {
         private readonly IFirstStepReadManager _businessManager;
 
-        public FirstStepQuery(IFirstStepReadManager manager) : base()
+        public FirstStepQuery(IQueryContext<TIntent> context, IFirstStepReadManager manager) : base(context)
         {
             _businessManager = manager;
         }
-
+      
         public IFirstStepReadManager BusinessManager => _businessManager;
     }
 }

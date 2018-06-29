@@ -1,64 +1,63 @@
-﻿using NetCore.FirstStep.Business.Arguments;
+﻿using NetCore.FirstStep.Business.Queries;
 using NetCore.FirstStep.Core;
 using NetCore.FirstStep.Domain;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace NetCore.FirstStep.Business.Commands
 {
-    public class SubmitTransactionCommand : FirstStepCommand<SubmitTransactionArgument, Transaction>
+    public class SubmitTransactionCommand : FirstStepCommand<SubmitTransactionIntent, Transaction>
     {
-        private readonly IQuery<GetAccountArgument, Account> _getAccountQuery;
-        private readonly ICommand<UpdateTransactionStatusArgument, Transaction> _updateTransactionStatusQuery;
+        private readonly IQuery<GetAccountIntent, Account> _getAccountQuery;
+        private readonly ICommand<UpdateTransactionStatusIntent, Transaction> _updateTransactionStatusQuery;
 
         public SubmitTransactionCommand(
+            ICommandContext<SubmitTransactionIntent> context,
             IFirstStepBusinessManager manager,
-            IQuery<GetAccountArgument, Account> getAccountQuery,
-            ICommand<UpdateTransactionStatusArgument, Transaction> updateTransactionStatusQuery) : base(manager)
+            IQuery<GetAccountIntent, Account> getAccountQuery,
+            ICommand<UpdateTransactionStatusIntent, Transaction> updateTransactionStatusCommand) : base(context, manager)
         {
             _getAccountQuery = getAccountQuery;
-            _updateTransactionStatusQuery = updateTransactionStatusQuery;
+            _updateTransactionStatusQuery = updateTransactionStatusCommand;
         }
 
-        protected override async Task<IResult<Transaction>> PreProcessCommand(SubmitTransactionArgument argument)
+        public override async Task<IResult<Transaction>> Execute(SubmitTransactionIntent argument)
         {
-            var sender = await _getAccountQuery.Fetch(new GetAccountArgument() { Key = argument.SenderKey });
-   
-            if(!sender.IsSuccessful)
+            if (argument.SenderKey == argument.RecipientKey)
             {
-                return sender.ExceptionDetails.ToErrorResult<Transaction>();
+                return FailureReason.ExpectationFailed.ToErrorResult<Transaction>("SubmitTransactionIntent", "identical keys");
             }
 
-            if(sender.Content == null)
+            var senderResult = await _getAccountQuery.Fetch(new GetAccountIntent(argument.SenderKey));
+            var accountResult = await _getAccountQuery.Fetch(new GetAccountIntent(argument.RecipientKey));
+
+            if (! (senderResult.IsSuccessful && accountResult.IsSuccessful))
             {
-                return FailureReason.BadRequest.ToErrorResult<Transaction>("invalid sender key");
+                return senderResult.FailureDetails
+                    .Union(accountResult.FailureDetails)
+                    .ToErrorResult<Transaction>();
             }
 
-            var recipient = await _getAccountQuery.Fetch(new GetAccountArgument() { Key = argument.RecipientKey });
+            var transaction = await HandleResult(
+                argument,
+                () => BusinessManager.CreateTransaction(argument.SenderKey, argument.RecipientKey, argument.Sum));
 
-            if (! recipient.IsSuccessful)
+            if(transaction.IsSuccessful)
             {
-                return sender.ExceptionDetails.ToErrorResult<Transaction>();
+                var setStatusResult = await _updateTransactionStatusQuery.Execute(new UpdateTransactionStatusIntent(
+                    transaction.Content.Id,
+                    Transaction.Status.Submitted));
+
+                if (!setStatusResult.IsSuccessful)
+                {
+                    transaction.AddFailureDetails(setStatusResult.FailureDetails.ToArray());
+                }
+
+                return setStatusResult;
             }
 
-            if (recipient.Content == null)
-            {
-                return FailureReason.BadRequest.ToErrorResult<Transaction>("invalid recipient key");
-            }
-
-            return default(Transaction).ToResult();
-        }
-
-        protected override async Task<IResult<Transaction>> ProcessCommand(SubmitTransactionArgument argument)
-        {
-            var transaction = await BusinessManager.SubmitTransaction(
-                argument.SenderKey,
-                argument.RecipientKey,
-                argument.Sum);
-
-            return transaction.ToResult();
+            return transaction;
         }
     }
 }

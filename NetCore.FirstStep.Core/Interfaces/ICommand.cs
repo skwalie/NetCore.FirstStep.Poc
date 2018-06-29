@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 namespace NetCore.FirstStep.Core
 {
-    public interface ICommand<TInput, TOutput> : IRequest<TInput, TOutput>
+    public interface ICommand<TIntent, TOutput> : IContextHolder
     {
-        Task<IResult<TOutput>> Execute(TInput argument);
+        Task<IResult<TOutput>> Execute(TIntent input);
     }
 }

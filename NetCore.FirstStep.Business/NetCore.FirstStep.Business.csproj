@@ -5,16 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NetCore.FirstStep.Core.Web\NetCore.FirstStep.Core.Web.csproj" />
     <ProjectReference Include="..\NetCore.FirstStep.Core\NetCore.FirstStep.Core.csproj" />
     <ProjectReference Include="..\NetCore.FirstStep.Domain\NetCore.FirstStep.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Mappers\" />
-    <Folder Include="Decorators\" />
-    <Folder Include="NewFolder\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

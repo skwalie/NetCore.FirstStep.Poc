@@ -2,12 +2,10 @@
 
 namespace NetCore.FirstStep.Core
 {
-    public interface ICacheService<TQueryArgument, TData>
-        where TQueryArgument : ICacheableQueryArgument
+    public interface ICacheService<TIntent, TData>
     {
-        TData Create(TQueryArgument argument, TData result);
-        TData Get(TQueryArgument argument);
-        void Update(TQueryArgument argument, TData result);
-        void Delete(TQueryArgument argument);
+        TData Create(TIntent key, TData result, TimeSpan relativeExpiration);
+        TData Get(TIntent intent);
+        void Invalidate(TIntent intent);
     }
 }

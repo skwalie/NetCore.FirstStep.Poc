@@ -1,5 +1,4 @@
-﻿using NetCore.FirstStep.Business.Arguments;
-using NetCore.FirstStep.Core;
+﻿using NetCore.FirstStep.Core;
 using NetCore.FirstStep.Domain;
 using System;
 using System.Collections.Generic;
@@ -8,15 +7,23 @@ using System.Threading.Tasks;
 
 namespace NetCore.FirstStep.Business.Queries
 {
-    public class GetTransactionQuery : FirstStepQuery<GetTransactionArgument, Transaction>
+    public class GetTransactionQuery : FirstStepQuery<GetTransactionIntent, Transaction>
     {
-        public GetTransactionQuery(IFirstStepReadManager manager) : base(manager)
+        public GetTransactionQuery(
+            IQueryContext<GetTransactionIntent> context,
+            IFirstStepReadManager manager) : base(context, manager)
         {
         }
 
-        protected override async Task<IResult<Transaction>> ProcessQuery(GetTransactionArgument argument)
+        public override async Task<IResult<Transaction>> Fetch(GetTransactionIntent argument)
         {
-            var transaction = await BusinessManager.GetTransaction(argument.TransactionId);
+            var transaction = await BusinessManager.GetTransaction(argument.Key);
+
+            if(transaction == null)
+            {
+                return FailureReason.ExpectationFailed.ToErrorResult<Transaction>("GetTransactionIntent", "transaction not found");
+            }
+
             return transaction.ToResult();
         }
     }

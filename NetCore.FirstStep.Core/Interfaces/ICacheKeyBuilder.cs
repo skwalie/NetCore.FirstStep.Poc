@@ -4,8 +4,8 @@ using System.Text;
 
 namespace NetCore.FirstStep.Core
 {
-    public interface ICacheKeyBuilder<TQueryArgument>
+    public interface ICacheKeyBuilder<TIntent>
     {
-        string GetCacheKey(TQueryArgument domainObject);
+        CacheKey GetCacheKey(TIntent intent);
     }
 }

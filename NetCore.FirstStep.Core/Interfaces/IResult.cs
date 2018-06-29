@@ -6,10 +6,12 @@ namespace NetCore.FirstStep.Core
 {
     public interface IResult
     {
-        IList<FailureDetail> ExceptionDetails { get; }
+        IEnumerable<FailureDetail> FailureDetails { get; }
         bool IsSuccessful { get; }
+        void AddFailureDetail(FailureReason reason, string code, string message);
+        void AddFailureDetails(params FailureDetail[] failureDetails);
     }
-
+    
     public interface IResult<T> : IResult
     {
         T Content { get; }

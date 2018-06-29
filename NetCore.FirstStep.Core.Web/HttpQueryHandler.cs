@@ -8,44 +8,22 @@ using System.Linq;
 
 namespace NetCore.FirstStep.Core
 {
-    public class HttpQueryHandler<TInput, TOutput> : IHttpQueryHandler<TInput, TOutput>
+    public abstract class HttpQueryHandler<TIntent, TOutput> : 
+        HttpRequestHandler<TIntent, TOutput>,
+        IHttpQueryHandler<TIntent, TOutput>
+        where TIntent : IQueryIntent
     {
-        private readonly IQuery<TInput, TOutput> _query;
-
-        public HttpQueryHandler(IQuery<TInput, TOutput> query)
+        public HttpQueryHandler(
+            IQuery<TIntent, TOutput> query, 
+            IResponseMapper<TIntent, TOutput> responseMapper) : base(query, responseMapper)
         {
-            _query = query;
         }
 
-        public virtual async Task<IActionResult> HandleQuery(ControllerBase controller, TInput argument)
+        protected IQuery<TIntent, TOutput> Query => (IQuery<TIntent, TOutput>)ContextHolder;
+
+        protected override Task<IResult<TOutput>> ProcessRequest(TIntent input)
         {
-            if (controller.ModelState.IsValid)
-            {
-                var response = await _query.Fetch(argument);
-
-                if (response.IsSuccessful)
-                {
-                    return controller.Ok(response.Content);
-                }
-                else
-                {
-                    return CreateErrorResponse(controller, response);
-                }
-            }
-            else
-            {
-                var result = FailureReason.PreconditionFailed.ToErrorResult<TOutput>(controller.ModelState
-                    .Select(state => $"{state.Key}/{state.Value}")
-                    .ToArray());
-
-                return CreateErrorResponse(controller, result);
-            }
-        }
-
-        protected virtual IActionResult CreateErrorResponse(ControllerBase controller, IResult result)
-        {
-            var reason = result.ExceptionDetails.Max(x => (short)x.Reason);
-            return controller.StatusCode(reason);
+            return Query.Fetch(input);
         }
     }
 }

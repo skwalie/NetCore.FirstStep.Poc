@@ -6,12 +6,13 @@ namespace NetCore.FirstStep.Core
 {
     public enum FailureReason
     {
+        NoContent = 204,
+
         BadRequest = 400,
         Unauthorized = 401,
         PaymentRequired = 402,
         Forbidden = 403,
         NotFound = 404,
-        MethodNotAllowed = 405,
         NotAcceptable = 406,
         ProxyAuthenticationRequired = 407,
         RequestTimeout = 408,

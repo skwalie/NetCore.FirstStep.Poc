@@ -2,8 +2,8 @@
 
 namespace NetCore.FirstStep.External
 {
-    public interface IFacade<TInput, TOutput>
+    public interface IFacade<TIntent, TOutput>
     {
-        Task<TOutput> Do(TInput argument);
+        Task<TOutput> Do(TIntent argument);
     }
 }

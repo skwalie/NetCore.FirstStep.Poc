@@ -3,8 +3,9 @@ using System.Threading.Tasks;
 
 namespace NetCore.FirstStep.Core
 {
-    public interface IHttpCommandHandler<TInput, TOutput> 
+    public interface IHttpCommandHandler<TIntent, TOutput> : IHttpRequestHandler<TIntent>
+        where TIntent : ICommandIntent
     {
-        Task<IActionResult> HandleCommand(ControllerBase controller, TInput argument);
+
     }
 }

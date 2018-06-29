@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 namespace NetCore.FirstStep.Core
 {
-    public interface IHttpQueryHandler<TInput, TOutput>
+    public interface IHttpQueryHandler<TIntent, TOutput> : IHttpRequestHandler<TIntent>
+        where TIntent : IQueryIntent
     {
-        Task<IActionResult> HandleQuery(ControllerBase controller, TInput argument);
     }
 }

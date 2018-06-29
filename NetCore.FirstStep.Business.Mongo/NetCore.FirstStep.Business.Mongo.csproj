@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NetCore.FirstStep.Business\NetCore.FirstStep.Business.csproj" />
+    <ProjectReference Include="..\NetCore.FirstStep.Core\NetCore.FirstStep.Core.csproj" />
+    <ProjectReference Include="..\NetCore.FirstStep.Domain\NetCore.FirstStep.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

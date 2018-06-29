@@ -20,14 +20,23 @@ namespace NetCore.FirstStep.Core
             _content = content;
         }
 
-        public ResultBase(Exception exception, FailureReason reason) : this(new FailureDetail(reason, exception, exception.Message))
+        public ResultBase(Exception exception, FailureReason reason) : 
+            this(new FailureDetail(reason, exception, new KeyValuePair<string, object>("error", exception.Message)))
         {
         }
 
-        public IList<FailureDetail> ExceptionDetails => _exceptionDetails;
+        public IEnumerable<FailureDetail> FailureDetails => _exceptionDetails;
         public bool IsSuccessful => !_exceptionDetails.Any();
         public T Content => _content;
 
+        public void AddFailureDetail(FailureReason reason, string code, string message)
+        {
+            _exceptionDetails.Add(new FailureDetail(reason, new KeyValuePair<string, object>(code, message)));
+        }
 
+        public void AddFailureDetails(params FailureDetail[] failureDetails)
+        {
+            failureDetails?.ToList().ForEach(_exceptionDetails.Add);
+        }
     }
 }

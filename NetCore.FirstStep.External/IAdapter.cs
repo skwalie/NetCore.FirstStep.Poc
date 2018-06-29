@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 namespace NetCore.FirstStep.External
 {
-    public interface IAdapter<TInput, TOutput>
+    public interface IAdapter<TIntent, TOutput>
     {
-        Task<IResult<TOutput>> Adapt(TInput input);
+        Task<IResult<TOutput>> Adapt(TIntent input);
     }
 }

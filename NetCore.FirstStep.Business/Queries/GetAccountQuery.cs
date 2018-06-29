@@ -1,23 +1,27 @@
-﻿using NetCore.FirstStep.Business.Arguments;
-using NetCore.FirstStep.Core;
+﻿using NetCore.FirstStep.Core;
 using NetCore.FirstStep.Domain;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace NetCore.FirstStep.Business.Queries
 {
-    public class GetAccountQuery : FirstStepQuery<GetAccountArgument, Account>
+    public class GetAccountQuery : FirstStepQuery<GetAccountIntent, Account>
     {
-        public GetAccountQuery(IFirstStepReadManager businessManager) : base(businessManager)
+        public GetAccountQuery(
+            IQueryContext<GetAccountIntent> context,
+            IFirstStepReadManager businessManager) : base(context, businessManager)
         {
         }
 
-        protected override async Task<IResult<Account>> ProcessQuery(GetAccountArgument argument)
+        public override async Task<IResult<Account>> Fetch(GetAccountIntent argument)
         {
-            var result = await BusinessManager.GetAccount(argument.Key);
-            return result.ToResult();
+            var account = await BusinessManager.GetAccount(argument.Key);
+
+            if(account == null)
+            {
+                return FailureReason.ExpectationFailed.ToErrorResult<Account>("GetAccountIntent", "account not found");
+            }
+
+            return account.ToResult();
         }
     }
 }
