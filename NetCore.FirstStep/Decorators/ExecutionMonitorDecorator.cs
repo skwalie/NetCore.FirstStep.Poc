@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace NetCore.FirstStep.Decorators
@@ -43,7 +44,7 @@ namespace NetCore.FirstStep.Decorators
             watch.Stop();
 
             var status = result.IsSuccessful ? "SUCCESS" : "FAILURE";
-            Trace.TraceInformation($"{status} -> {input.GetType().Name} has been Executed in {watch.ElapsedMilliseconds.ToString("N4")} ms ");
+            Trace.TraceInformation($"{status} [{Thread.CurrentThread.ManagedThreadId}] -> {input.GetType().Name} has been Executed in {watch.ElapsedMilliseconds.ToString("N4")} ms ");
 
             return result;
         }

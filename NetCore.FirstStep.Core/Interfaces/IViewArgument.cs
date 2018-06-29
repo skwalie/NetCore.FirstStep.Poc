@@ -1,5 +1,4 @@
-﻿
-using NetCore.FirstStep.Core.Interfaces;
+﻿using NetCore.FirstStep.Core.Interfaces;
 
 namespace NetCore.FirstStep.Core
 {

@@ -1,7 +1,4 @@
-﻿using NetCore.FirstStep.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace NetCore.FirstStep.Core

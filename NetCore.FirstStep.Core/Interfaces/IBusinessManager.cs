@@ -6,6 +6,5 @@ namespace NetCore.FirstStep.Core
 {
     public interface IBusinessManager
     {
-
     }
 }

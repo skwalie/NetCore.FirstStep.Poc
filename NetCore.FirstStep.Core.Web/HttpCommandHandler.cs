@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq;
+﻿using System.Threading.Tasks;
 
 namespace NetCore.FirstStep.Core
-{ 
+{
     public abstract class HttpCommandHandler<TIntent, TOutput> : HttpRequestHandler<TIntent, TOutput>,
         IHttpCommandHandler<TIntent, TOutput>
         where TIntent : ICommandIntent

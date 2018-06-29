@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NetCore.FirstStep.Core
+﻿namespace NetCore.FirstStep.Core
 {
     public abstract class GetFromIdentifierIntent<TDomain, TIdentifer> : IGetByIdIntent<TIdentifer>
     {

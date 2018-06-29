@@ -1,9 +1,4 @@
 ﻿using NetCore.FirstStep.Core;
-using NetCore.FirstStep.Domain;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NetCore.FirstStep.Business.Queries
 {

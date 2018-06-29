@@ -9,6 +9,6 @@ namespace NetCore.FirstStep.Core
         T GetValue<T>();
         T GetValue<T>(string name);
 
-        void CopyTo(IContextHolder desintation);
+        void CopyTo(IContextHolder desinatation);
     }
 }

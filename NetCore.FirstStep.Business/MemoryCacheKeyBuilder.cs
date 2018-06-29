@@ -1,9 +1,6 @@
 ﻿using NetCore.FirstStep.Business.Commands;
 using NetCore.FirstStep.Business.Queries;
 using NetCore.FirstStep.Core;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace NetCore.FirstStep.Business
 {
