@@ -4,6 +4,7 @@ using System.Text;
 
 namespace NetCore.FirstStep.Core
 {
+    //TODO: rename it !
     public interface IRequestContext : IRequestContextReader
     {
         void SetValue<T>(T value);

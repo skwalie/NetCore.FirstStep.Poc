@@ -12,7 +12,6 @@ namespace NetCore.FirstStep.Core
             IQuery<TIntent, TOutput> query) : base(context)
         {
             _query = query;
-
         }
 
         protected IQuery<TIntent, TOutput> Instance => _query;
