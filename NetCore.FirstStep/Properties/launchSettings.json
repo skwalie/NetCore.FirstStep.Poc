@@ -18,8 +18,7 @@
     },
     "NetCore.FirstStep": {
       "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "api/transaction/anyargumentkeyXXXXXX",
+      "launchUrl": "api/account/anyargumentkeyXXXXXX",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

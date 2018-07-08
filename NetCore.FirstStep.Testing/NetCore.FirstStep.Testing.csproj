@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0-preview-20180610-02" />
+    <PackageReference Include="Moq" Version="4.8.3" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.3.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.3.2" />
+    <PackageReference Include="NUnit" Version="3.10.1" />
+    <PackageReference Include="NUnit.Runners" Version="3.8.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="StressTests\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NetCore.FirstStep.Business.Mongo\NetCore.FirstStep.Business.Mongo.csproj" />
+    <ProjectReference Include="..\NetCore.FirstStep.Business.Stub\NetCore.FirstStep.Business.Stub.csproj" />
+    <ProjectReference Include="..\NetCore.FirstStep.Business\NetCore.FirstStep.Business.csproj" />
+    <ProjectReference Include="..\NetCore.FirstStep.Core.Web\NetCore.FirstStep.Core.Web.csproj" />
+    <ProjectReference Include="..\NetCore.FirstStep.Core\NetCore.FirstStep.Core.csproj" />
+    <ProjectReference Include="..\NetCore.FirstStep.Domain\NetCore.FirstStep.Domain.csproj" />
+    <ProjectReference Include="..\NetCore.FirstStep\NetCore.FirstStep.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,7 +1,7 @@
 ﻿using NetCore.FirstStep.Core;
 using System;
 
-namespace NetCore.FirstStep.Business
+namespace NetCore.FirstStep.Core
 {
     public class IntentException : Exception
     {
